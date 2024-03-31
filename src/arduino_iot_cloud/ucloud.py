@@ -211,6 +211,10 @@ class ArduinoCloudClient:
         if port is None:
             port = _DEFAULT_PORT[0] if password is None else _DEFAULT_PORT[1]
 
+        # Set hostname for SSL hostname verification unless it's already set.
+        if "server_hostname" not in ssl_params:
+            ssl_params["server_hostname"] = server
+
         # Create MQTT client.
         self.mqtt = MQTTClient(
                 device_id, server, port, ssl_params, username, password, keepalive, self.mqtt_callback

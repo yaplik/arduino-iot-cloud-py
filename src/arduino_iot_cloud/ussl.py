@@ -29,7 +29,7 @@ def wrap_socket(
                 if k in ssl_params and "der" in ssl_params[k]:
                     with open(ssl_params.pop(k), "rb") as f:
                         ssl_params[v] = f.read()
-        return ssl.wrap_socket(sock, **ssl_params)
+        return ssl.create_default_context().wrap_socket(sock, **ssl_params)
 
     # Use M2Crypto to load key and cert from HSM.
     from M2Crypto import m2, SSL, Engine
